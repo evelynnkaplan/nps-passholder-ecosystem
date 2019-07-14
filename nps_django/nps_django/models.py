@@ -8,6 +8,14 @@ class Passholder(models.Model):
   def __str__(self):
     return f'{self.first_name} {self.last_name}'
 
+  def passes(self):
+    passes = []
+    passes_set = self.pass_set.all()
+    for pass_item in passes_set:
+      passes.append(pass_item)
+    
+    return passes
+
 class Pass(models.Model):
   STANDARD = 'Standard'
   SENIOR_LIFETIME = 'Senior Lifetime'
@@ -41,9 +49,14 @@ class Pass(models.Model):
   email = models.EmailField(max_length=100)
   phone_num = models.CharField(max_length=20)
   cost = models.DecimalField(max_digits=5, decimal_places=2)
+
+  def valid(self):
+    today = date.today()
+    return today <= self.expiration_date
+  valid.boolean = True 
   
   def __str__(self):
-    return f'{self.type}'
+    return f"{self.type}"
 
   class Meta:
     verbose_name_plural = "passes"
@@ -51,7 +64,7 @@ class Pass(models.Model):
 class Park(models.Model):
   name = models.CharField(max_length=100)
   state = models.CharField(max_length=2)
-  zip_code = models.IntegerField
+  zip_code = models.IntegerField(null=True)
 
   def __str__(self):
     return f'{self.name}'
@@ -63,7 +76,7 @@ class Visit(models.Model):
     blank=True, 
     null=True
     )
-  date = models.DateField
+  date = models.DateField(null=True)
   park = models.ForeignKey(Park, on_delete=models.CASCADE)
 
   def __str__(self):
