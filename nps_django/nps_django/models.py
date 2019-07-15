@@ -35,6 +35,7 @@ class Pass(models.Model):
   )
   passholder_primary = models.ForeignKey(
     Passholder,
+    related_name='passes',
     on_delete=models.SET_NULL,
     null=True
     )
@@ -56,7 +57,7 @@ class Pass(models.Model):
   valid.boolean = True
   
   def __str__(self):
-    return f"{self.type}"
+    return f"{self.type}, ID: {self.id}, Valid: {self.valid()}, Expiration: {self.expiration_date}"
 
   class Meta:
     verbose_name_plural = "passes"
@@ -77,7 +78,7 @@ class Visit(models.Model):
     null=True
     )
   date = models.DateField(null=True)
-  park = models.ForeignKey(Park, on_delete=models.CASCADE)
+  park = models.ForeignKey(Park, related_name='visits', on_delete=models.CASCADE)
 
   def __str__(self):
     return f"{self.passholder.first_name} {self.passholder.last_name}, {self.park}, {self.date}"
