@@ -9,6 +9,7 @@ def registration(request):
   if request.method == 'POST':
     form = PassForm(request.POST)
     if form.is_valid():
+      new_pass = form.save()
       return HttpResponseRedirect(passholder_registration_complete)
   else: 
     form = PassForm()

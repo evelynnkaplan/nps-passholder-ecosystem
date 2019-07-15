@@ -33,7 +33,10 @@ class Pass(models.Model):
     (GRADE_4, 'Annual 4th Grade Pass'),
     (VOLUNTEER, 'Volunteer Pass')
   )
-  pass_id = models.CharField(max_length=100, unique=True)
+  pass_id = models.CharField(
+    max_length=100,
+    verbose_name='Pass ID', 
+    unique=True)
   passholder_primary = models.ForeignKey(
     Passholder,
     related_name='passes',
@@ -49,12 +52,26 @@ class Pass(models.Model):
   )
   # online_registration_name allows users registering their passes online to put in their name, and
   # rangers can look it up at the gate. That way, there's no duplicate passholder created.
-  online_registration_name = models.CharField(max_length=200, null=True, blank=True) 
-  expiration_date = models.DateField('Expiration date', null=True)
+  online_registration_name = models.CharField(
+    max_length=200,
+    verbose_name='Primary passholder name', 
+    null=True, 
+    blank=True) 
+  expiration_date = models.DateField(
+    verbose_name='Expiration date', 
+    null=True,
+    help_text="Please use the following format: <em>YYYY-MM-DD</em>.")
+  # help_text derived from https://docs.djangoproject.com/en/2.2/ref/models/fields
   zip_code = models.IntegerField(null=True)
   email = models.EmailField(max_length=100)
-  phone_num = models.CharField(max_length=20)
-  cost = models.DecimalField(max_digits=5, decimal_places=2)
+  phone_num = models.CharField(
+    max_length=20,
+    verbose_name='Phone number')
+  cost = models.DecimalField(
+    max_digits=5, 
+    decimal_places=2, 
+    blank=True,
+    null=True)
 
   def valid(self):
     today = date.today()
