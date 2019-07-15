@@ -37,7 +37,9 @@ class Pass(models.Model):
     Passholder,
     related_name='passes',
     on_delete=models.SET_NULL,
-    null=True
+    null=True,
+    blank=True,
+    default=[]
     )
   passholder_secondary = models.CharField(max_length=200, null=True, blank=True)
   type = models.CharField(
@@ -73,9 +75,11 @@ class Park(models.Model):
 class Visit(models.Model):
   passholder = models.ForeignKey(
     Passholder,
+    related_name="visits",
     on_delete=models.SET_NULL,
     blank=True, 
-    null=True
+    null=True,
+    default=[]
     )
   date = models.DateField(null=True)
   park = models.ForeignKey(Park, related_name='visits', on_delete=models.CASCADE)
