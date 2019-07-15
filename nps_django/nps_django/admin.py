@@ -10,9 +10,9 @@ class PassAdmin(admin.ModelAdmin):
 
   def get_fields(self, request, obj=None):
     if obj is None or (obj.type != 'Standard' and obj.type != 'Military'):
-      return ['pass_id', 'passholder_primary', 'type', 'expiration_date', 'zip_code', 'email', 'phone_num', 'cost']
+      return ['pass_id', 'passholder_primary', 'online_registration_name', 'type', 'expiration_date', 'zip_code', 'email', 'phone_num', 'cost']
     elif obj.type == 'Standard' or obj.type == 'Military':
-      return ['passholder_primary', 'passholder_secondary', 'type', 'expiration_date', 'zip_code', 'email', 'phone_num', 'cost']
+      return ['pass_id', 'passholder_primary', 'passholder_secondary', 'online_registration_name', 'type', 'expiration_date', 'zip_code', 'email', 'phone_num', 'cost']
 
 class PassInline(admin.TabularInline):
   model = Pass
