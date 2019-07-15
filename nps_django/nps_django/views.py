@@ -3,15 +3,15 @@ from rest_framework import viewsets
 from nps_django.serializers import PassholderSerializer, PassSerializer, ParkSerializer, VisitSerializer
 from django.http import HttpResponseRedirect
 from django.shortcuts import render 
-from .forms import PassholderForm
+from .forms import PassForm
 
 def registration(request):
   if request.method == 'POST':
-    form = PassholderForm(request.POST)
+    form = PassForm(request.POST)
     if form.is_valid():
       return HttpResponseRedirect(passholder_registration_complete)
   else: 
-    form = PassholderForm()
+    form = PassForm()
   
   return render(request, 'registration.html', {'form': form})
 

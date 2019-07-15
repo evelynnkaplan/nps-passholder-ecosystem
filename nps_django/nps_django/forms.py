@@ -1,4 +1,7 @@
 from django import forms
+from .models import Pass
 
-class PassholderForm(forms.Form):
-  first_name = forms.CharField(label="First name:", max_length=200)
+class PassForm(forms.ModelForm):
+  class Meta:
+    model = Pass
+    fields = ['pass_id', 'online_registration_name', 'type', 'expiration_date', 'zip_code', 'email', 'phone_num']
