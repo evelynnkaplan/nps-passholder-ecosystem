@@ -27,5 +27,7 @@ router.register(r'visits', views.VisitViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('registration/', views.registration, name='passholder_registration'),
+    path('registration-complete/', views.registration_complete, name='passholder_registration_complete')
 ]

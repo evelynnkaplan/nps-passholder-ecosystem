@@ -1,6 +1,22 @@
 from nps_django.models import Passholder, Pass, Park, Visit
 from rest_framework import viewsets
 from nps_django.serializers import PassholderSerializer, PassSerializer, ParkSerializer, VisitSerializer
+from django.http import HttpResponseRedirect
+from django.shortcuts import render 
+from .forms import PassholderForm
+
+def registration(request):
+  if request.method == 'POST':
+    form = PassholderForm(request.POST)
+    if form.is_valid():
+      return HttpResponseRedirect('/')
+  else: 
+    form = PassholderForm()
+  
+  return render(request, 'registration.html', {'form': form})
+
+def registration_complete(request):
+  return render(request, 'registration_complete.html')
 
 class PassholderViewSet(viewsets.ModelViewSet):
   """
