@@ -4,13 +4,13 @@ from .models import Pass, Passholder, Park, Visit
 
 class PassAdmin(admin.ModelAdmin):
   autocomplete_fields = ['passholder_primary']
-  list_display = ['id', 'passholder_primary', 'zip_code', 'type', 'valid', 'expiration_date']
+  list_display = ['pass_id', 'passholder_primary', 'zip_code', 'type', 'valid', 'expiration_date']
   list_filter = ['type']
-  search_fields = ['passholder_primary__first_name', 'passholder_primary__last_name', 'id', 'email']
+  search_fields = ['passholder_primary__first_name', 'passholder_primary__last_name', 'pass_id', 'email']
 
   def get_fields(self, request, obj=None):
     if obj is None or (obj.type != 'Standard' and obj.type != 'Military'):
-      return ['passholder_primary', 'type', 'expiration_date', 'zip_code', 'email', 'phone_num', 'cost']
+      return ['pass_id', 'passholder_primary', 'type', 'expiration_date', 'zip_code', 'email', 'phone_num', 'cost']
     elif obj.type == 'Standard' or obj.type == 'Military':
       return ['passholder_primary', 'passholder_secondary', 'type', 'expiration_date', 'zip_code', 'email', 'phone_num', 'cost']
 

@@ -33,13 +33,13 @@ class Pass(models.Model):
     (GRADE_4, 'Annual 4th Grade Pass'),
     (VOLUNTEER, 'Volunteer Pass')
   )
+  pass_id = models.CharField(max_length=100, unique=True)
   passholder_primary = models.ForeignKey(
     Passholder,
     related_name='passes',
     on_delete=models.SET_NULL,
     null=True,
-    blank=True,
-    default=[]
+    blank=True
     )
   passholder_secondary = models.CharField(max_length=200, null=True, blank=True)
   type = models.CharField(
@@ -78,8 +78,7 @@ class Visit(models.Model):
     related_name="visits",
     on_delete=models.SET_NULL,
     blank=True, 
-    null=True,
-    default=[]
+    null=True
     )
   date = models.DateField(null=True)
   park = models.ForeignKey(Park, related_name='visits', on_delete=models.CASCADE)

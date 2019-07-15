@@ -9,7 +9,7 @@ def registration(request):
   if request.method == 'POST':
     form = PassholderForm(request.POST)
     if form.is_valid():
-      return HttpResponseRedirect('/')
+      return HttpResponseRedirect(passholder_registration_complete)
   else: 
     form = PassholderForm()
   
