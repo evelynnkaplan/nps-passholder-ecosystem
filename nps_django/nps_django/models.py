@@ -47,6 +47,9 @@ class Pass(models.Model):
     choices=PASS_TYPES,
     default=STANDARD,
   )
+  # online_registration_name allows users registering their passes online to put in their name, and
+  # rangers can look it up at the gate. That way, there's no duplicate passholder created.
+  online_registration_name = models.CharField(max_length=200, null=True, blank=True) 
   expiration_date = models.DateField('Expiration date', null=True)
   zip_code = models.IntegerField(null=True)
   email = models.EmailField(max_length=100)
