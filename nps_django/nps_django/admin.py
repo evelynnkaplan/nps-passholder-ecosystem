@@ -19,11 +19,6 @@ class PassInline(admin.TabularInline):
   exclude = ['passholder_secondary']
   extra = 1
 
-class PassholderAdmin(admin.ModelAdmin):
-  search_fields = ['first_name', 'last_name']
-  list_display = ['first_name', 'last_name', 'passes']
-  inlines = [PassInline]
-
 class ParkAdmin(admin.ModelAdmin):
   search_fields = ['name']
   list_filter = ['state']
@@ -31,6 +26,15 @@ class ParkAdmin(admin.ModelAdmin):
 class VisitAdmin(admin.ModelAdmin):
   autocomplete_fields = ['passholder', 'park']
   list_filter = ['park', 'park__state', 'date']
+
+class VisitInline(admin.TabularInline):
+  model = Visit
+  extra = 1
+
+class PassholderAdmin(admin.ModelAdmin):
+  search_fields = ['first_name', 'last_name']
+  list_display = ['first_name', 'last_name']
+  inlines = [PassInline, VisitInline]
 
 
 admin.site.register(Pass, PassAdmin)
