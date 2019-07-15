@@ -1,3 +1,10 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'nps_django/style.css' %}">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|PT+Serif&display=swap" rel="stylesheet">
+
+<h1>Register your annual pass</h1>
+
 <form action="/registration/" method="post">
   {% csrf_token %}
   {{ form }}
