@@ -2,21 +2,27 @@ from django.contrib import admin
 
 from .models import Pass, Passholder, Park, Visit
 
-class PassholderAdmin(admin.ModelAdmin):
-  search_fields = ['first_name', 'last_name']
-  list_display = ['first_name', 'last_name', 'passes']
-
 class PassAdmin(admin.ModelAdmin):
   autocomplete_fields = ['passholder_primary']
-  list_display = ['passholder_primary', 'zip_code', 'type', 'valid']
+  list_display = ['id', 'passholder_primary', 'zip_code', 'type', 'valid', 'expiration_date']
   list_filter = ['type']
-  search_fields = ['passholder_primary__first_name', 'passholder_primary__last_name']
+  search_fields = ['passholder_primary__first_name', 'passholder_primary__last_name', 'id', 'email']
 
   def get_fields(self, request, obj=None):
     if obj is None or (obj.type != 'Standard' and obj.type != 'Military'):
       return ['passholder_primary', 'type', 'expiration_date', 'zip_code', 'email', 'phone_num', 'cost']
     elif obj.type == 'Standard' or obj.type == 'Military':
       return ['passholder_primary', 'passholder_secondary', 'type', 'expiration_date', 'zip_code', 'email', 'phone_num', 'cost']
+
+class PassInline(admin.TabularInline):
+  model = Pass
+  exclude = ['passholder_secondary']
+  extra = 1
+
+class PassholderAdmin(admin.ModelAdmin):
+  search_fields = ['first_name', 'last_name']
+  list_display = ['first_name', 'last_name', 'passes']
+  inlines = [PassInline]
 
 class ParkAdmin(admin.ModelAdmin):
   search_fields = ['name']

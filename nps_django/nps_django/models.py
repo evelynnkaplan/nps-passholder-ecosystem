@@ -53,7 +53,7 @@ class Pass(models.Model):
   def valid(self):
     today = date.today()
     return today <= self.expiration_date
-  valid.boolean = True 
+  valid.boolean = True
   
   def __str__(self):
     return f"{self.type}"
