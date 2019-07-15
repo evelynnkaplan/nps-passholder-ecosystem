@@ -10,7 +10,7 @@ def registration(request):
     form = PassForm(request.POST)
     if form.is_valid():
       new_pass = form.save()
-      return HttpResponseRedirect(passholder_registration_complete)
+      return HttpResponseRedirect('/registration/complete/')
   else: 
     form = PassForm()
   
