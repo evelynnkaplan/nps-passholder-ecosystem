@@ -26,7 +26,7 @@ class PassholderViewSet(viewsets.ModelViewSet):
 
 class PassViewSet(viewsets.ModelViewSet):
   """
-  API endpoint that allows groups to be viewed or edited.
+  API endpoint that allows passes to be viewed or edited.
   """
   queryset = Pass.objects.all().order_by('type')
   serializer_class = PassSerializer
