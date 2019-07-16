@@ -6,6 +6,27 @@ body {
   align-items: center;
 }
 
+li {
+  list-style-type: none;
+  list-style-position: outside;
+  font-size: 1.25em;
+  text-align: center;
+}
+
+.messages {
+  background: rgba(114, 176, 67, 0.7);
+  border-radius: 2%;
+  display: flex;
+  justify-content: center;
+  padding-left: 0;
+}
+
+.messages li {
+  display: block;
+  text-align: center;
+  padding: 5%;
+}
+
 h1 {
   font-size: 2em;
 }

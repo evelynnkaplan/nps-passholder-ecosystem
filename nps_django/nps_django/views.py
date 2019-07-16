@@ -3,6 +3,7 @@ from rest_framework import viewsets
 from nps_django.serializers import PassholderSerializer, PassSerializer, ParkSerializer, VisitSerializer
 from django.http import HttpResponseRedirect
 from django.shortcuts import render 
+from django.contrib import messages
 from .forms import PassForm
 
 def registration(request):
@@ -10,14 +11,11 @@ def registration(request):
     form = PassForm(request.POST)
     if form.is_valid():
       new_pass = form.save()
-      return HttpResponseRedirect('/registration/complete/')
+      messages.success(request, 'You successfully registered your pass. Go explore!')
+      # return render(request, 'registration.html', {'form': form})
   else: 
     form = PassForm()
-  
   return render(request, 'registration.html', {'form': form})
-
-def registration_complete(request):
-  return render(request, 'registration_complete.html')
 
 class PassholderViewSet(viewsets.ModelViewSet):
   """

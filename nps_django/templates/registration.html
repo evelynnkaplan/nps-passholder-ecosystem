@@ -7,6 +7,14 @@
   <link rel="stylesheet" type="text/css" href="{% static 'nps_django/registration.css' %}">
 
   <h1>Register your annual pass</h1>
+
+{% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+  </ul>
+{% endif %}
   
   <section class="form-container">
     <form action="/registration/" method="post">
