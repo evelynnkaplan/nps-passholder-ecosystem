@@ -59,11 +59,9 @@ class Pass(models.Model):
     blank=True) 
   expiration_date = models.DateField(
     verbose_name='Expiration date', 
-    null=True,
-    help_text="Please use the following format: <em>YYYY-MM-DD</em>.")
-  # help_text derived from https://docs.djangoproject.com/en/2.2/ref/models/fields
+    null=True)
   zip_code = models.IntegerField(null=True)
-  email = models.EmailField(max_length=100)
+  email = models.EmailField(max_length=100, verbose_name='Email address')
   phone_num = models.CharField(
     max_length=20,
     verbose_name='Phone number')
