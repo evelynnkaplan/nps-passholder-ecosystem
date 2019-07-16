@@ -10,11 +10,11 @@ class PassholderSerializer(serializers.HyperlinkedModelSerializer):
     fields = ('first_name', 'last_name', 'passes', 'visits')
 
 class PassSerializer(serializers.HyperlinkedModelSerializer):
-  passholder_primary = serializers.StringRelatedField
+  passholder_primary = serializers.StringRelatedField()
 
   class Meta:
     model = Pass
-    fields = ('type', 'passholder_primary', 'passholder_secondary', 'expiration_date', 'zip_code', 'email', 'phone_num', 'cost')
+    fields = ('pass_id', 'type', 'passholder_primary', 'passholder_secondary', 'expiration_date', 'zip_code', 'email', 'phone_num', 'cost')
 
 class ParkSerializer(serializers.HyperlinkedModelSerializer):
   visits = serializers.StringRelatedField(many=True)
@@ -24,8 +24,11 @@ class ParkSerializer(serializers.HyperlinkedModelSerializer):
     fields = ('name', 'state', 'visits')
 
 class VisitSerializer(serializers.HyperlinkedModelSerializer):
-  park = serializers.StringRelatedField
-  passholder = serializers.StringRelatedField
+  park_queryset = Park.objects.all()
+  passholder_queryset = Passholder.objects.all()
+  
+  park = serializers.PrimaryKeyRelatedField(queryset = park_queryset)
+  passholder = serializers.PrimaryKeyRelatedField(queryset = passholder_queryset)
 
   class Meta:
     model = Visit
