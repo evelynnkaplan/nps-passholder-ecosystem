@@ -85,7 +85,6 @@ class Pass(models.Model):
 class Park(models.Model):
   name = models.CharField(max_length=100)
   state = models.CharField(max_length=2)
-  zip_code = models.IntegerField(null=True)
 
   def __str__(self):
     return f'{self.name}'
